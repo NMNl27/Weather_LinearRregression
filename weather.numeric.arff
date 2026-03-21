@@ -1,5 +1,10 @@
+% Weather data file for Weather Regression project
+% ARFF (Attribute-Relation File Format) standard for Machine Learning
+% Data includes: outlook, temperature, humidity, windy, play
+
 @relation weather
 
+% Data attributes
 @attribute outlook {sunny, overcast, rainy}
 @attribute temperature numeric
 @attribute humidity numeric
@@ -7,6 +12,8 @@
 @attribute play {yes, no}
 
 @data
+% Format: outlook,temperature,humidity,windy,play
+% Example: sunny,85,85,FALSE,no = sunny,85F,85%,no wind,no play
 sunny,85,85,FALSE,no
 sunny,80,90,TRUE,no
 overcast,83,86,FALSE,yes

@@ -3,75 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather Regression Analysis</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>Weather Regression Analysis</title> <!-- หัวข้อเว็บไซต์ -->
+    <script src="https://cdn.tailwindcss.com"></script> <!-- Tailwind CSS สำหรับจัดรูปแบบ -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"> <!-- Font Awesome สำหรับไอคอน -->
     <style>
+        /* สไตล์ CSS สำหรับปรับแต่งหน้าตาเว็บไซต์ */
         .gradient-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* พื้นหลังแบบไล่สี */
         }
         .card-shadow {
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); /* เงาสำหรับการ์ด */
         }
         .input-focus {
-            transition: all 0.3s ease;
+            transition: all 0.3s ease; /* การเปลี่ยนแปลงแบบนุ่มนวลเมื่อโฟกัส */
         }
         .input-focus:focus {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px -5px rgba(102, 126, 234, 0.3);
+            transform: translateY(-2px); /* ยกช่องป้อนข้อมูลขึ้นเล็กน้อยเมื่อโฟกัส */
+            box-shadow: 0 10px 20px -5px rgba(102, 126, 234, 0.3); /* เงาสีม่วงเมื่อโฟกัส */
         }
         .fade-in {
-            animation: fadeIn 0.5s ease-in;
+            animation: fadeIn 0.5s ease-in; /* แอนิเมชันค่อยๆ ปรากฏ */
         }
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(20px); } /* เริ่มจากจางและอยู่ด้านล่าง */
+            to { opacity: 1; transform: translateY(0); } /* สิ้นสุดที่ชัดและอยู่ตำแหน่งปกติ */
         }
         .result-card {
-            animation: slideIn 0.6s ease-out;
+            animation: slideIn 0.6s ease-out; /* แอนิเมชันการ์ดผลลัพธ์เลื่อนเข้า */
         }
         @keyframes slideIn {
-            from { opacity: 0; transform: translateX(-20px); }
-            to { opacity: 1; transform: translateX(0); }
+            from { opacity: 0; transform: translateX(-20px); } /* เริ่มจากจางและอยู่ด้านซ้าย */
+            to { opacity: 1; transform: translateX(0); } /* สิ้นสุดที่ชัดและอยู่ตำแหน่งปกติ */
         }
     </style>
 </head>
 <body class="min-h-screen bg-gray-50">
-    <!-- Header -->
+    <!-- ส่วนหัวของเว็บไซต์ -->
     <header class="gradient-bg text-white shadow-lg">
         <div class="container mx-auto px-4 py-6">
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-3">
-                    <i class="fas fa-cloud-sun text-3xl"></i>
+                    <i class="fas fa-cloud-sun text-3xl"></i> <!-- ไอคอนสภาพอากาศ -->
                     <div>
-                        <h1 class="text-2xl font-bold">Weather Regression Analysis</h1>
-                        <p class="text-purple-100 text-sm">Linear Regression: Humidity vs Temperature</p>
+                        <h1 class="text-2xl font-bold">Weather Regression Analysis</h1> <!-- หัวข้อหลัก -->
+                        <p class="text-purple-100 text-sm">Linear Regression: Humidity vs Temperature</p> <!-- คำอธิบายย่อ -->
                     </div>
                 </div>
                 <div class="flex items-center space-x-4">
                     <span class="bg-white/20 px-3 py-1 rounded-full text-sm">
-                        <i class="fas fa-chart-line mr-1"></i> ML Model
+                        <i class="fas fa-chart-line mr-1"></i> ML Model <!-- ป้ายระบุว่าเป็นโมเดล Machine Learning -->
                     </span>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Main Content -->
+    <!-- เนื้อหาหลักของเว็บไซต์ -->
     <main class="container mx-auto px-4 py-8">
         <div class="grid lg:grid-cols-2 gap-8">
-            <!-- Input Section -->
+            <!-- ส่วนป้อนข้อมูล -->
             <div class="fade-in">
                 <div class="bg-white rounded-xl card-shadow p-6">
                     <div class="flex items-center mb-6">
-                        <i class="fas fa-temperature-high text-purple-600 text-xl mr-3"></i>
-                        <h2 class="text-xl font-semibold text-gray-800">Input Weather Data</h2>
+                        <i class="fas fa-temperature-high text-purple-600 text-xl mr-3"></i> <!-- ไอคอนอุณหภูมิ -->
+                        <h2 class="text-xl font-semibold text-gray-800">Input Weather Data</h2> <!-- หัวข้อส่วนป้อนข้อมูล -->
                     </div>
                     
+                    <!-- ฟอร์มสำหรับป้อนข้อมูลสภาพอากาศ -->
                     <form action="/predict" method="POST" class="space-y-6">
                         <div>
                             <label for="humidity" class="block text-sm font-medium text-gray-700 mb-2">
-                                <i class="fas fa-tint text-blue-500 mr-1"></i> Humidity
+                                <i class="fas fa-tint text-blue-500 mr-1"></i> Humidity <!-- ป้ายช่องความชื้น -->
                             </label>
                             <input 
                                 type="number" 
@@ -80,14 +82,14 @@
                                 step="0.1"
                                 required
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent input-focus"
-                                placeholder="Enter humidity value (e.g., 85.0)"
+                                placeholder="Enter humidity value (e.g., 85.0)" <!-- ข้อความแนะนำในช่องป้อน -->
                             >
-                            <p class="text-xs text-gray-500 mt-1">Typical range: 0-100%</p>
+                            <p class="text-xs text-gray-500 mt-1">Typical range: 0-100%</p> <!-- คำอธิบายช่วงค่า -->
                         </div>
                         
                         <div>
                             <label for="temperature" class="block text-sm font-medium text-gray-700 mb-2">
-                                <i class="fas fa-thermometer-half text-red-500 mr-1"></i> Temperature (°F)
+                                <i class="fas fa-thermometer-half text-red-500 mr-1"></i> Temperature (°F) <!-- ป้ายช่องอุณหภูมิ -->
                             </label>
                             <input 
                                 type="number" 
@@ -96,145 +98,147 @@
                                 step="0.1"
                                 required
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent input-focus"
-                                placeholder="Enter temperature (e.g., 75.0)"
+                                placeholder="Enter temperature (e.g., 75.0)" <!-- ข้อความแนะนำในช่องป้อน -->
                             >
-                            <p class="text-xs text-gray-500 mt-1">Temperature in Fahrenheit</p>
+                            <p class="text-xs text-gray-500 mt-1">Temperature in Fahrenheit</p> <!-- คำอธิบายหน่วย -->
                         </div>
                         
+                        <!-- ปุ่มสำหรับวิเคราะห์และพยากรณ์ -->
                         <button 
                             type="submit" 
                             class="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold py-3 px-6 rounded-lg hover:from-purple-700 hover:to-blue-700 transform transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
                         >
                             <i class="fas fa-chart-line mr-2"></i>
-                            Analyze & Predict
+                            Analyze & Predict <!-- ข้อความบนปุ่ม -->
                         </button>
                     </form>
                 </div>
 
-                <!-- Model Info Card -->
+                <!-- การ์ดข้อมูลโมเดล -->
                 <div class="bg-white rounded-xl card-shadow p-6 mt-6">
                     <div class="flex items-center mb-4">
-                        <i class="fas fa-info-circle text-blue-600 text-xl mr-3"></i>
-                        <h3 class="text-lg font-semibold text-gray-800">Model Information</h3>
+                        <i class="fas fa-info-circle text-blue-600 text-xl mr-3"></i> <!-- ไอคอนข้อมูล -->
+                        <h3 class="text-lg font-semibold text-gray-800">Model Information</h3> <!-- หัวข้อข้อมูลโมเดล -->
                     </div>
                     <div class="space-y-3 text-sm">
                         <div class="flex justify-between">
-                            <span class="text-gray-600">Algorithm:</span>
+                            <span class="text-gray-600">Algorithm:</span> <!-- อัลกอริทึม -->
                             <span class="font-medium text-gray-800">Linear Regression</span>
                         </div>
                         <div class="flex justify-between">
-                            <span class="text-gray-600">Method:</span>
+                            <span class="text-gray-600">Method:</span> <!-- วิธีการ -->
                             <span class="font-medium text-gray-800">Normal Equation</span>
                         </div>
                         <div class="flex justify-between">
-                            <span class="text-gray-600">Features:</span>
+                            <span class="text-gray-600">Features:</span> <!-- คุณลักษณะ -->
                             <span class="font-medium text-gray-800">Humidity</span>
                         </div>
                         <div class="flex justify-between">
-                            <span class="text-gray-600">Target:</span>
+                            <span class="text-gray-600">Target:</span> <!-- เป้าหมาย -->
                             <span class="font-medium text-gray-800">Temperature</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Results Section -->
+            <!-- ส่วนแสดงผลลัพธ์ -->
             <div class="fade-in">
-                {% if results %}
-                    {% if results.success %}
-                        <!-- Results Cards -->
+                {% if results %} <!-- ตรวจสอบว่ามีผลลัพธ์หรือไม่ -->
+                    {% if results.success %} <!-- ตรวจสอบว่าการคำนวณสำเร็จ -->
+                        <!-- การ์ดผลลัพธ์ต่างๆ -->
                         <div class="space-y-6">
-                            <!-- Visualization -->
+                            <!-- กราฟการวิเคราะห์ -->
                             <div class="result-card bg-white rounded-xl card-shadow p-6">
                                 <div class="flex items-center mb-4">
-                                    <i class="fas fa-chart-scatter text-indigo-600 text-xl mr-3"></i>
-                                    <h3 class="text-lg font-semibold text-gray-800">Regression Visualization</h3>
+                                    <i class="fas fa-chart-scatter text-indigo-600 text-xl mr-3"></i> <!-- ไอคอนกราฟ -->
+                                    <h3 class="text-lg font-semibold text-gray-800">Regression Visualization</h3> <!-- หัวข้อกราฟ -->
                                 </div>
                                 <div class="bg-gray-50 rounded-lg p-4">
-                                    <img src="{{ results.plot_url }}" alt="Regression Plot" class="w-full h-auto rounded-lg shadow-md">
+                                    <img src="{{ results.plot_url }}" alt="Regression Plot" class="w-full h-auto rounded-lg shadow-md"> <!-- แสดงกราฟ -->
                                 </div>
                             </div>
 
-                            <!-- Prediction Result -->
+                            <!-- ผลลัพธ์การพยากรณ์ -->
                             <div class="result-card bg-white rounded-xl card-shadow p-6">
                                 <div class="flex items-center mb-4">
-                                    <i class="fas fa-bullseye text-green-600 text-xl mr-3"></i>
-                                    <h3 class="text-lg font-semibold text-gray-800">Prediction Results</h3>
+                                    <i class="fas fa-bullseye text-green-600 text-xl mr-3"></i> <!-- ไอคอนเป้าหมาย -->
+                                    <h3 class="text-lg font-semibold text-gray-800">Prediction Results</h3> <!-- หัวข้อผลลัพธ์ -->
                                 </div>
                                 
+                                <!-- แสดงข้อมูลต่างๆ ในกริด -->
                                 <div class="grid grid-cols-2 gap-4">
                                     <div class="bg-blue-50 rounded-lg p-4">
-                                        <p class="text-sm text-blue-600 font-medium">Input Humidity</p>
+                                        <p class="text-sm text-blue-600 font-medium">Input Humidity</p> <!-- ค่าความชื้นที่ป้อน -->
                                         <p class="text-2xl font-bold text-blue-800">{{ results.user_humidity }}%</p>
                                     </div>
                                     <div class="bg-green-50 rounded-lg p-4">
-                                        <p class="text-sm text-green-600 font-medium">Predicted Temperature</p>
+                                        <p class="text-sm text-green-600 font-medium">Predicted Temperature</p> <!-- อุณหภูมิที่พยากรณ์ -->
                                         <p class="text-2xl font-bold text-green-800">{{ results.predicted_temp }}°F</p>
                                     </div>
                                     <div class="bg-red-50 rounded-lg p-4">
-                                        <p class="text-sm text-red-600 font-medium">Actual Temperature</p>
+                                        <p class="text-sm text-red-600 font-medium">Actual Temperature</p> <!-- อุณหภูมิจริง -->
                                         <p class="text-2xl font-bold text-red-800">{{ results.user_temp }}°F</p>
                                     </div>
                                     <div class="bg-purple-50 rounded-lg p-4">
-                                        <p class="text-sm text-purple-600 font-medium">Absolute Error</p>
+                                        <p class="text-sm text-purple-600 font-medium">Absolute Error</p> <!-- ค่าความคลาดเคลื่อน -->
                                         <p class="text-2xl font-bold text-purple-800">{{ results.absolute_error }}°F</p>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Regression Equation -->
+                            <!-- สมการการถดถอย -->
                             <div class="result-card bg-white rounded-xl card-shadow p-6">
                                 <div class="flex items-center mb-4">
-                                    <i class="fas fa-square-root-variable text-purple-600 text-xl mr-3"></i>
-                                    <h3 class="text-lg font-semibold text-gray-800">Regression Equation</h3>
+                                    <i class="fas fa-square-root-variable text-purple-600 text-xl mr-3"></i> <!-- ไอคอนสมการ -->
+                                    <h3 class="text-lg font-semibold text-gray-800">Regression Equation</h3> <!-- หัวข้อสมการ -->
                                 </div>
                                 <div class="bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg p-4">
                                     <p class="text-lg font-mono text-center text-gray-800">
-                                        {{ results.equation }}
+                                        {{ results.equation }} <!-- แสดงสมการการถดถอย -->
                                     </p>
                                 </div>
                             </div>
 
-                            <!-- Model Performance -->
+                            <!-- ประสิทธิภาพโมเดล -->
                             <div class="result-card bg-white rounded-xl card-shadow p-6">
                                 <div class="flex items-center mb-4">
-                                    <i class="fas fa-chart-area text-orange-600 text-xl mr-3"></i>
-                                    <h3 class="text-lg font-semibold text-gray-800">Model Performance</h3>
+                                    <i class="fas fa-chart-area text-orange-600 text-xl mr-3"></i> <!-- ไอคอนกราฟพื้นที่ -->
+                                    <h3 class="text-lg font-semibold text-gray-800">Model Performance</h3> <!-- หัวข้อประสิทธิภาพ -->
                                 </div>
                                 <div class="space-y-3">
                                     <div class="flex justify-between items-center">
-                                        <span class="text-gray-600">Total Cost (Jθ):</span>
+                                        <span class="text-gray-600">Total Cost (Jθ):</span> <!-- ค่าความคลาดเคลื่อนรวม -->
                                         <span class="font-mono font-medium text-gray-800">{{ results.total_cost }}</span>
                                     </div>
                                     <div class="flex justify-between items-center">
-                                        <span class="text-gray-600">Your Point Cost:</span>
+                                        <span class="text-gray-600">Your Point Cost:</span> <!-- ค่าความคลาดเคลื่อนของผู้ใช้ -->
                                         <span class="font-mono font-medium text-gray-800">{{ results.cost_contribution }}</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    {% else %}
-                        <!-- Error Message -->
+                    {% else %} <!-- กรณีเกิดข้อผิดพลาด -->
+                        <!-- ข้อความแจ้งเตือน -->
                         <div class="bg-red-50 border-l-4 border-red-500 rounded-lg p-6">
                             <div class="flex items-center">
-                                <i class="fas fa-exclamation-triangle text-red-600 text-xl mr-3"></i>
+                                <i class="fas fa-exclamation-triangle text-red-600 text-xl mr-3"></i> <!-- ไอคอนคำเตือน -->
                                 <div>
-                                    <h3 class="text-lg font-semibold text-red-800">Error</h3>
-                                    <p class="text-red-600">{{ results.error }}</p>
+                                    <h3 class="text-lg font-semibold text-red-800">Error</h3> <!-- หัวข้อข้อผิดพลาด -->
+                                    <p class="text-red-600">{{ results.error }}</p> <!-- รายละเอียดข้อผิดพลาด -->
                                 </div>
                             </div>
                         </div>
                     {% endif %}
-                {% else %}
-                    <!-- Welcome Message -->
+                {% else %} <!-- กรณียังไม่มีผลลัพธ์ -->
+                    <!-- ข้อความต้อนรับ -->
                     <div class="bg-white rounded-xl card-shadow p-8 text-center">
-                        <i class="fas fa-cloud-sun-rain text-6xl text-purple-600 mb-4"></i>
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Welcome to Weather Regression</h3>
-                        <p class="text-gray-600 mb-6">Enter humidity and temperature values to see how our linear regression model predicts temperature based on humidity.</p>
+                        <i class="fas fa-cloud-sun-rain text-6xl text-purple-600 mb-4"></i> <!-- ไอคอนสภาพอากาศ -->
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Welcome to Weather Regression</h3> <!-- หัวข้อต้อนรับ -->
+                        <p class="text-gray-600 mb-6">Enter humidity and temperature values to see how our linear regression model predicts temperature based on humidity.</p> <!-- คำอธิบาย -->
                         <div class="bg-purple-50 rounded-lg p-4 text-left">
                             <p class="text-sm text-purple-800">
-                                <i class="fas fa-lightbulb mr-2"></i>
-                                <strong>Tip:</strong> Try different humidity values to see how the predicted temperature changes!
+                                <i class="fas fa-lightbulb mr-2"></i> <!-- ไอคอนหลอดไฟ -->
+                                <strong>Tip:</strong> Try different humidity values to see how the predicted temperature changes! <!-- คำแนะนำ -->
                             </p>
                         </div>
                     </div>
@@ -243,26 +247,28 @@
         </div>
     </main>
 
-    <!-- Footer -->
+    <!-- ส่วนท้ายของเว็บไซต์ -->
     <footer class="bg-gray-800 text-white mt-12 py-6">
         <div class="container mx-auto px-4 text-center">
             <p class="text-sm">
-                <i class="fas fa-code mr-1"></i> 
-                Weather Regression Analysis powered by Linear Regression & Normal Equation
+                <i class="fas fa-code mr-1"></i> <!-- ไอคอนโค้ด -->
+                Weather Regression Analysis powered by Linear Regression & Normal Equation <!-- ข้อความท้าย -->
             </p>
         </div>
     </footer>
 
     <script>
-        // Add input validation feedback
+        // JavaScript สำหรับตรวจสอบข้อมูลที่ป้อนในฟอร์ม
         document.addEventListener('DOMContentLoaded', function() {
-            const inputs = document.querySelectorAll('input[type="number"]');
+            const inputs = document.querySelectorAll('input[type="number"]'); // ดึงช่องป้อนตัวเลขทั้งหมด
             inputs.forEach(input => {
                 input.addEventListener('input', function() {
                     if (this.value && !isNaN(this.value)) {
+                        // ถ้าข้อมูลถูกต้อง ให้เปลี่ยนขอบเป็นสีเขียว
                         this.classList.add('border-green-500');
                         this.classList.remove('border-red-500');
                     } else if (this.value) {
+                        // ถ้าข้อมูลไม่ถูกต้อง ให้เปลี่ยนขอบเป็นสีแดง
                         this.classList.add('border-red-500');
                         this.classList.remove('border-green-500');
                     }
