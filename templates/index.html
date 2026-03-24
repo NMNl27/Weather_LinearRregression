@@ -139,6 +139,19 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- สมการการถดถอย -->
+                <div class="bg-white rounded-xl card-shadow p-6 mt-6">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-square-root-variable text-purple-600 text-xl mr-3"></i> <!-- ไอคอนสมการ -->
+                        <h3 class="text-lg font-semibold text-gray-800">Regression Equation</h3> <!-- หัวข้อสมการ -->
+                    </div>
+                    <div class="bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg p-4">
+                        <p class="text-lg font-mono text-center text-gray-800">
+                            {% if results %}{{ results.equation }}{% else %}Temperature = θ₀ + θ₁ × Humidity{% endif %} <!-- แสดงสมการการถดถอย -->
+                        </p>
+                    </div>
+                </div>
             </div>
 
             <!-- ส่วนแสดงผลลัพธ์ -->
@@ -147,17 +160,6 @@
                     {% if results.success %} <!-- ตรวจสอบว่าการคำนวณสำเร็จ -->
                         <!-- การ์ดผลลัพธ์ต่างๆ -->
                         <div class="space-y-6">
-                            <!-- กราฟการวิเคราะห์ -->
-                            <div class="result-card bg-white rounded-xl card-shadow p-6">
-                                <div class="flex items-center mb-4">
-                                    <i class="fas fa-chart-scatter text-indigo-600 text-xl mr-3"></i> <!-- ไอคอนกราฟ -->
-                                    <h3 class="text-lg font-semibold text-gray-800">Regression Visualization</h3> <!-- หัวข้อกราฟ -->
-                                </div>
-                                <div class="bg-gray-50 rounded-lg p-4">
-                                    <img src="{{ results.plot_url }}" alt="Regression Plot" class="w-full h-auto rounded-lg shadow-md"> <!-- แสดงกราฟ -->
-                                </div>
-                            </div>
-
                             <!-- ผลลัพธ์การพยากรณ์ -->
                             <div class="result-card bg-white rounded-xl card-shadow p-6">
                                 <div class="flex items-center mb-4">
@@ -174,28 +176,29 @@
                                     <div class="bg-green-50 rounded-lg p-4">
                                         <p class="text-sm text-green-600 font-medium">Predicted Temperature</p> <!-- อุณหภูมิที่พยากรณ์ -->
                                         <p class="text-2xl font-bold text-green-800">{{ results.predicted_temp }}°F</p>
+                                        <p class="text-sm text-green-600">({{ ((results.predicted_temp|float - 32) * 5/9)|round(1) }}°C)</p> <!-- เซลเซียส -->
                                     </div>
                                     <div class="bg-red-50 rounded-lg p-4">
                                         <p class="text-sm text-red-600 font-medium">Actual Temperature</p> <!-- อุณหภูมิจริง -->
                                         <p class="text-2xl font-bold text-red-800">{{ results.user_temp }}°F</p>
+                                        <p class="text-sm text-red-600">({{ ((results.user_temp|float - 32) * 5/9)|round(1) }}°C)</p> <!-- เซลเซียส -->
                                     </div>
                                     <div class="bg-purple-50 rounded-lg p-4">
                                         <p class="text-sm text-purple-600 font-medium">Absolute Error</p> <!-- ค่าความคลาดเคลื่อน -->
                                         <p class="text-2xl font-bold text-purple-800">{{ results.absolute_error }}°F</p>
+                                        <p class="text-sm text-purple-600">({{ ((results.absolute_error|float) * 5/9)|round(1) }}°C)</p> <!-- เซลเซียส -->
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- สมการการถดถอย -->
+                            <!-- กราฟการวิเคราะห์ -->
                             <div class="result-card bg-white rounded-xl card-shadow p-6">
                                 <div class="flex items-center mb-4">
-                                    <i class="fas fa-square-root-variable text-purple-600 text-xl mr-3"></i> <!-- ไอคอนสมการ -->
-                                    <h3 class="text-lg font-semibold text-gray-800">Regression Equation</h3> <!-- หัวข้อสมการ -->
+                                    <i class="fas fa-chart-scatter text-indigo-600 text-xl mr-3"></i> <!-- ไอคอนกราฟ -->
+                                    <h3 class="text-lg font-semibold text-gray-800">Regression Visualization</h3> <!-- หัวข้อกราฟ -->
                                 </div>
-                                <div class="bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg p-4">
-                                    <p class="text-lg font-mono text-center text-gray-800">
-                                        {{ results.equation }} <!-- แสดงสมการการถดถอย -->
-                                    </p>
+                                <div class="bg-gray-50 rounded-lg p-4">
+                                    <img src="{{ results.plot_url }}" alt="Regression Plot" class="w-full h-auto rounded-lg shadow-md"> <!-- แสดงกราฟ -->
                                 </div>
                             </div>
 
